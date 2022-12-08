@@ -6,7 +6,6 @@
 //  Copyright 2017 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
 //
 
-/******************************************************************************************************
 
 // mBaaSの初期化
 var ncmb = new NCMB(this.APPLICATION_KEY, this.CLIENT_KEY);
