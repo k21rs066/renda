@@ -11,12 +11,13 @@
 var ncmb = new NCMB(this.APPLICATION_KEY, this.CLIENT_KEY);
 // タイマー設定
 var countTimer = 8;
+var countTimer2 = 13;
 // タップ回数カウンター
 var counter = 0;
 // 「tapFlag」的のタップ可否設定
 var tapFlag = false;
 
-// 「Start」ボタン押下時の処理
+// 「5秒連打」ボタン押下時の処理
 function startGame() {
     // ボタンの無効化
     document.gameForm.start.disabled = true;
@@ -29,6 +30,21 @@ function startGame() {
     this.countTimer = 8;
     // タイマーを起動
     countTime(countTimer);
+}
+
+// 「10秒連打」ボタン押下時の処理
+function startGame2() {
+    // ボタンの無効化
+    document.gameForm.start.disabled = true;
+    document.gameForm.ranking.disabled = true;
+    
+    // タップカウンターリセット
+    this.counter = 0;
+    $("#list-page strong").html(String(0));
+    // タイマーリセット
+    this.countTimer = 13;
+    // タイマーを起動
+    countTime2(countTimer2);
 }
 
 // 【mBaaS】データの保存
@@ -62,6 +78,28 @@ function countTime(time) {
         this.countTimer -= 1;
         // １秒後にcountTime()を呼び出す
         setTimeout("countTime(countTimer)",1000);
+    } else {
+        this.tapFlag = false;
+        $("#list-page p").html("タイムアップ！");
+        imputName(this.counter);
+    }    
+}
+
+function countTime2(time) {
+    if (time > 0){
+        if (time >= 11) {
+            this.tapFlag = false;
+            $("#list-page p").html(String(time-10));
+        } else if (time == 10) {
+            this.tapFlag = true;
+            $("#list-page p").html("スタート！");
+        } else {
+            this.tapFlag = true;
+            $("#list-page p").html(String(time));
+        }
+        this.countTimer2 -= 1;
+        // １秒後にcountTime()を呼び出す
+        setTimeout("countTime2(countTimer2)",1000);
     } else {
         this.tapFlag = false;
         $("#list-page p").html("タイムアップ！");
